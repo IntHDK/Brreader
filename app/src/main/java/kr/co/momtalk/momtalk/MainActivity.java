@@ -1,5 +1,7 @@
 package kr.co.momtalk.momtalk;
 
+import android.graphics.Camera;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -91,7 +95,27 @@ public class MainActivity extends AppCompatActivity {
     public static class PlaceholderFragment extends Fragment {
         /**
          * 현재 fragment 액티비티화면의 섹션 페이지 번호를 나타내는 변수 선언.
+         *
          */
+
+        private CameraManager Surface_Camera;
+        private SurfaceHolder.Callback Surface_Camera_Callback=new SurfaceHolder.Callback(){
+
+            @Override
+            public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+
+            }
+        };
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         /** PlaceholderFragment 클래스 생성자
@@ -113,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
+                    SurfaceView cameraview = (SurfaceView)rootView.findViewById(R.id.CameraPreviewSurface);
+
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
