@@ -16,6 +16,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
 
     static ViewPager mViewPager;
+
+    private CameraBridgeViewBase mOpenCvCameraView;
+    private Mat mMat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,22 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        //OpenCV Initialize
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, this, new BaseLoaderCallback(this) {
+            @Override
+            public void onManagerConnected(int status) {
+                switch(status){
+                    case BaseLoaderCallback.SUCCESS:
+                    {
+                        //TODO: OpenCV 활성화시 수행되는 메소드
+                    }
+                    default: {
+                        super.onManagerConnected(status);
+                    }
+                    break;
+                }
+            }
+        });
     }
 
     @Override
@@ -134,10 +160,11 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = null;
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                    SurfaceView cameraview = (SurfaceView)rootView.findViewById(R.id.CameraPreviewSurface);
+                    //TODO: 카메라 인식 초기화
 
                     break;
                 case 2:
